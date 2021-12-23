@@ -1,2 +1,0 @@
-# Mars-Rovers
-mars-rovers
