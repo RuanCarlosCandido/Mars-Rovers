@@ -14,14 +14,11 @@ public class Instruction {
 
 	public Instruction(String message) {
 
-		List<Command> commands = 
+		this.commands = 
 				message
 				.chars()
 				.mapToObj(c -> Command.of((char) c))
 				.collect(Collectors.toList());
-
-		this.commands = commands;
-
 	}
 
 	public List<Command> getCommands() {

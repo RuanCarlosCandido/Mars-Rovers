@@ -62,5 +62,5 @@ How to run the project
 7 - Run the application on src/test/Application.java
 8 - There is a file called inputFile.txt where you can give any instruction to the first Rover.
 
-Many Thank
+Thank you
 Ruan Carlos

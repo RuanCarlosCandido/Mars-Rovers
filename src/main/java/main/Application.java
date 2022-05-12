@@ -27,6 +27,7 @@ public class Application {
 			receivedInstructionFromFile = Util.readFile();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "cannot read the file" + e.getMessage());
+			throw e;
 		}
 
 		Plateau plateau = new Plateau(5, 5);
