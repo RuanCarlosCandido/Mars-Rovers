@@ -19,7 +19,6 @@ public class Util {
 			sb.append(line);
 			sb.append(System.lineSeparator());
 			line = br.readLine();
-
 			br.close();
 		}
 
