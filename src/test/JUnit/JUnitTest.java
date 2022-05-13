@@ -1,24 +1,24 @@
-package JUnitPackage;
+package JUnit;
 
 import static org.junit.Assert.*;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import models.Facing;
-import models.Instruction;
-import models.Plateau;
-import models.Position;
-import models.PositionAlreadyFilledException;
-import models.PositionOutOfBoundsException;
-import models.Rover;
-import models.UnknownCommandException;
+import org.models.Facing;
+import org.models.Instruction;
+import org.models.Plateau;
+import org.models.Position;
+import org.models.PositionAlreadyFilledException;
+import org.models.PositionOutOfBoundsException;
+import org.models.Rover;
+import org.models.UnknownCommandException;
 
 public class JUnitTest {
 
 	private Plateau plateau = new Plateau(5, 5);
 
+	@SuppressWarnings("deprecation")
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 

@@ -1,4 +1,4 @@
-package models;
+package org.models;
 
 /**
  * Throws when a rover try to move into a place already occupied

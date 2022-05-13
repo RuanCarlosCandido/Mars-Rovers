@@ -1,15 +1,15 @@
-package test;
+package org;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Util.Util;
-import models.Facing;
-import models.Instruction;
-import models.Plateau;
-import models.Position;
-import models.Rover;
+import org.models.Facing;
+import org.models.Instruction;
+import org.models.Plateau;
+import org.models.Position;
+import org.models.Rover;
+import org.util.Util;
 
 /*Expected outPut: 
  * Rover1 position = 1 3 N
@@ -19,7 +19,7 @@ public class Application {
 
 	private static final Logger logger = Logger.getLogger(Application.class.getName());
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		String receivedInstructionFromFile = null;
 
@@ -39,21 +39,21 @@ public class Application {
 		Rover rover1 = new Rover("Rover1", initialPosition);
 
 		initialPosition = new Position(3, 3, Facing.E);
-		
+
 		Rover rover2 = new Rover("Rover2", initialPosition);
 
 		plateau.addRover(rover1).addRover(rover2);
 
 		rover1.executeInstruction(instruction, plateau);
-		
+
 		rover1.showPosition();
-	
+
 		String receivedMessage2 = "MMRMMRMRRM";
 
 		instruction = new Instruction(receivedMessage2);
 
 		rover2.executeInstruction(instruction, plateau);
-		
+
 		rover2.showPosition();
 
 	}

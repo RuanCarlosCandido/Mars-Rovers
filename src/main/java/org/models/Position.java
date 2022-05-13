@@ -1,7 +1,7 @@
-package models;
+package org.models;
 
-import static models.Facing.*;
-import static models.Command.*;
+import static org.models.Command.*;
+import static org.models.Facing.*;
 
 /**
  * The position occupied by a rover in the plateau

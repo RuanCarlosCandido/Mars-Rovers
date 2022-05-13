@@ -1,4 +1,4 @@
-package models;
+package org.models;
 
 /**
  * Throws when a Instruction contains commands different from L - R - M

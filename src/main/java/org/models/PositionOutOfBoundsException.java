@@ -1,4 +1,4 @@
-package models;
+package org.models;
 
 /**
  * Throws when the rover try to overtake the plateau bound

@@ -1,4 +1,4 @@
-package models;
+package org.models;
 
 /**
  * The Rover holds a position until it have a permission to move
