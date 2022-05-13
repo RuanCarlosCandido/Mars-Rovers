@@ -1,10 +1,10 @@
-package java;
+package roverTest;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.models.Facing;
 import org.models.Instruction;
 import org.models.Plateau;
@@ -17,10 +17,6 @@ import org.models.UnknownCommandException;
 public class JUnitTest {
 
 	private Plateau plateau = new Plateau(5, 5);
-
-	@SuppressWarnings("deprecation")
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
 	public void moving_rover_one_success_expected() {
@@ -58,9 +54,6 @@ public class JUnitTest {
 	@Test
 	public void moving_rover_out_plateau_bounds_throw_expected() {
 
-		thrown.expect(PositionOutOfBoundsException.class);
-		thrown.expectMessage("1 6 N is out of the plateau bounds");
-
 		String receivedMessage = "MMMMMMMMM";
 		Instruction instruction = new Instruction(receivedMessage);
 
@@ -68,20 +61,28 @@ public class JUnitTest {
 
 		Rover rover1 = new Rover("Rover1", initialPosition);
 
-		rover1.executeInstruction(instruction, plateau);
-		;
+		assertThrows(PositionOutOfBoundsException.class, new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				rover1.executeInstruction(instruction, plateau);
+			}
+		});
+
 	}
 
-	@SuppressWarnings("unused")
 	@Test
 	public void unknown_command_throw_expected() {
 
-		thrown.expect(UnknownCommandException.class);
-		thrown.expectMessage(
-				"X is an invalid command! Use 'R' to rotate right 'L' to rotate left or 'M' to move the rover");
-
 		String receivedMessage = "XMMMMMMMM";
-		Instruction instruction = new Instruction(receivedMessage);
+
+		assertThrows(UnknownCommandException.class, new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				new Instruction(receivedMessage);
+			}
+		});
 
 	}
 
@@ -101,9 +102,13 @@ public class JUnitTest {
 		plateau.removeAllRovers();
 		plateau.addRover(rover1).addRover(rover2);
 
-		thrown.expect(PositionAlreadyFilledException.class);
-		thrown.expectMessage("0 2 W is already filled by a rover");
+		assertThrows(PositionAlreadyFilledException.class, new Executable() {
 
-		rover1.executeInstruction(instruction, plateau);
+			@Override
+			public void execute() throws Throwable {
+				rover1.executeInstruction(instruction, plateau);
+			}
+		});
+
 	}
 }
