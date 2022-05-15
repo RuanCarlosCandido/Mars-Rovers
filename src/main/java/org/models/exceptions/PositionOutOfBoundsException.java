@@ -1,4 +1,6 @@
-package org.models;
+package org.models.exceptions;
+
+import org.models.Position;
 
 /**
  * Throws when the rover try to overtake the plateau bound

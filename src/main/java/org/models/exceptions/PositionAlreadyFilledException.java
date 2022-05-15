@@ -1,4 +1,6 @@
-package org.models;
+package org.models.exceptions;
+
+import org.models.Position;
 
 /**
  * Throws when a rover try to move into a place already occupied

@@ -3,6 +3,8 @@ package org.models;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.models.exceptions.UnknownCommandException;
+
 /**
  * A command make the rover do an action
  * @Ruan

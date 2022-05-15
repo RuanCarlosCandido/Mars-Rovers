@@ -3,26 +3,29 @@ package roverTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.controllers.RoverController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.models.Facing;
 import org.models.Instruction;
 import org.models.Plateau;
 import org.models.Position;
-import org.models.PositionAlreadyFilledException;
-import org.models.PositionOutOfBoundsException;
 import org.models.Rover;
-import org.models.UnknownCommandException;
+import org.models.exceptions.PositionAlreadyFilledException;
+import org.models.exceptions.PositionOutOfBoundsException;
+import org.models.exceptions.UnknownCommandException;
 
 public class JUnitTest {
 
 	private Plateau plateau = new Plateau(5, 5);
 
+	private RoverController roverController = new RoverController(plateau);
+
 	@Test
 	public void moving_rover_one_success_expected() {
 
 		String receivedMessage = "LMLMLMLMM";
-		Instruction instruction = new Instruction(receivedMessage);
+		Instruction instruction = roverController.buildInstruction(receivedMessage);
 
 		Position initialPosition = new Position(1, 2, Facing.N);
 
@@ -30,15 +33,16 @@ public class JUnitTest {
 
 		plateau.addRover(rover1);
 
-		rover1.executeInstruction(instruction, plateau);
+		roverController.executeInstruction(instruction, rover1);
 
-		assertEquals("1 3 N", rover1.getPosition().getActualPosition());
+		assertEquals("1 3 N", rover1.getPositionOnPlateau().getActualPosition());
 	}
 
 	@Test
 	public void moving_rover_two_success_expected() {
 		String receivedMessage = "MMRMMRMRRM";
-		Instruction instruction = new Instruction(receivedMessage);
+
+		Instruction instruction = roverController.buildInstruction(receivedMessage);
 
 		Position initialPosition = new Position(3, 3, Facing.E);
 
@@ -46,16 +50,16 @@ public class JUnitTest {
 
 		plateau.addRover(rover2);
 
-		rover2.executeInstruction(instruction, plateau);
+		roverController.executeInstruction(instruction, rover2);
 
-		assertEquals("5 1 E", rover2.getPosition().getActualPosition());
+		assertEquals("5 1 E", rover2.getPositionOnPlateau().getActualPosition());
 	}
 
 	@Test
 	public void moving_rover_out_plateau_bounds_throw_expected() {
 
 		String receivedMessage = "MMMMMMMMM";
-		Instruction instruction = new Instruction(receivedMessage);
+		Instruction instruction = roverController.buildInstruction(receivedMessage);
 
 		Position initialPosition = new Position(1, 2, Facing.N);
 
@@ -65,7 +69,7 @@ public class JUnitTest {
 
 			@Override
 			public void execute() throws Throwable {
-				rover1.executeInstruction(instruction, plateau);
+				roverController.executeInstruction(instruction, rover1);
 			}
 		});
 
@@ -80,7 +84,7 @@ public class JUnitTest {
 
 			@Override
 			public void execute() throws Throwable {
-				new Instruction(receivedMessage);
+				roverController.buildInstruction(receivedMessage);
 			}
 		});
 
@@ -90,7 +94,7 @@ public class JUnitTest {
 	@Test
 	public void moving_rover_over_position_occupied_throw_expected() {
 		String receivedMessage = "LMLMLMLMM";
-		Instruction instruction = new Instruction(receivedMessage);
+		Instruction instruction = roverController.buildInstruction(receivedMessage);
 
 		Position initialPosition = new Position(1, 2, Facing.N);
 
@@ -106,7 +110,7 @@ public class JUnitTest {
 
 			@Override
 			public void execute() throws Throwable {
-				rover1.executeInstruction(instruction, plateau);
+				roverController.executeInstruction(instruction, rover1);
 			}
 		});
 

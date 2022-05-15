@@ -1,4 +1,4 @@
-package org.models;
+package org.models.exceptions;
 
 /**
  * Throws when a Instruction contains commands different from L - R - M

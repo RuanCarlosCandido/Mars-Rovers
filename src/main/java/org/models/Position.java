@@ -5,6 +5,7 @@ import static org.models.Facing.*;
 
 /**
  * The position occupied by a rover in the plateau
+ * 
  * @Ruan
  */
 public class Position {
@@ -25,24 +26,24 @@ public class Position {
 	public void move(Command command) {
 
 		if (command.equals(Left)) {
-			if (facing.equals(N)) 
+			if (facing.equals(N))
 				facing = W;
-			else if (facing.equals(E)) 
+			else if (facing.equals(E))
 				facing = N;
-			else if (facing.equals(W)) 
+			else if (facing.equals(W))
 				facing = S;
-			else if (facing.equals(S)) 
+			else if (facing.equals(S))
 				facing = E;
 
 		}
 		if (command.equals(Right)) {
-			if (facing.equals(N)) 
+			if (facing.equals(N))
 				facing = E;
-			else if (facing.equals(E)) 
+			else if (facing.equals(E))
 				facing = S;
-			else if (facing.equals(W)) 
+			else if (facing.equals(W))
 				facing = N;
-			else if (facing.equals(S)) 
+			else if (facing.equals(S))
 				facing = W;
 
 		}
@@ -61,13 +62,11 @@ public class Position {
 
 	public boolean isOutOfBounds(Plateau plateau) {
 
-		if (x < 0 || x > plateau.limitX) 
+		if (x < 0 || x > plateau.limitX)
 			return true;
 
-
-		if (y < 0 || y > plateau.limitY) 
+		if (y < 0 || y > plateau.limitY)
 			return true;
-
 
 		return false;
 	}
@@ -76,15 +75,17 @@ public class Position {
 
 		Position position = new Position(x, y, facing);
 
-		return plateau
-				.getRovers()
-				.stream()
-				.filter(rover -> !rover.getIdentification().equals(roverId))
-				.anyMatch(rover -> rover.getPosition().equals(position));
+		return plateau.getRovers().stream().filter(rover -> !rover.getIdentification().equals(roverId))
+				.anyMatch(rover -> rover.getPositionOnPlateau().equals(position));
 	}
 
 	public boolean equals(Position otherPosition) {
 		return x == otherPosition.x && y == otherPosition.y;
+	}
+
+	@Override
+	public String toString() {
+		return x + " " + y + " " + facing;
 	}
 
 }

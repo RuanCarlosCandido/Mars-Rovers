@@ -30,7 +30,12 @@ public class Plateau {
 	}
 
 	public void removeAllRovers() {
-		rovers = new ArrayList<Rover>();
+		rovers.clear();
+	}
+
+	@Override
+	public String toString() {
+		return "rovers=" + rovers;
 	}
 	
 }
