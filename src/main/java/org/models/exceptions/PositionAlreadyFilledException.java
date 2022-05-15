@@ -11,7 +11,7 @@ public class PositionAlreadyFilledException extends RuntimeException{
 	private static final long serialVersionUID = -5364744104552614385L;
 
 	public PositionAlreadyFilledException(Position position) {
-		super(position.getActualPosition() + " is already filled by a rover");
+		super(position.toString() + " is already filled by a rover");
 
 	}
 

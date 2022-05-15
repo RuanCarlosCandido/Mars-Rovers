@@ -12,7 +12,7 @@ public class PositionOutOfBoundsException extends RuntimeException{
 
 	public PositionOutOfBoundsException(Position position) {
 	
-		super(position.getActualPosition() + " is out of the plateau bounds");	
+		super(position.toString() + " is out of the plateau bounds");	
 	
 	}
 	

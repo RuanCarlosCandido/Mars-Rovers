@@ -1,8 +1,5 @@
 package org.models;
 
-import static org.models.Command.*;
-import static org.models.Facing.*;
-
 /**
  * The position occupied by a rover in the plateau
  * 
@@ -19,73 +16,21 @@ public class Position {
 		this.facing = facing;
 	}
 
-	public String getActualPosition() {
-		return String.format("%s %s %s", this.x, this.y, this.facing);
-	}
+	public boolean equals(Position otherPosition) {	return x == otherPosition.x && y == otherPosition.y; }
 
-	public void move(Command command) {
+	public int getX() {	return x; }
 
-		if (command.equals(Left)) {
-			if (facing.equals(N))
-				facing = W;
-			else if (facing.equals(E))
-				facing = N;
-			else if (facing.equals(W))
-				facing = S;
-			else if (facing.equals(S))
-				facing = E;
+	public void setX(int x) { this.x = x; }
 
-		}
-		if (command.equals(Right)) {
-			if (facing.equals(N))
-				facing = E;
-			else if (facing.equals(E))
-				facing = S;
-			else if (facing.equals(W))
-				facing = N;
-			else if (facing.equals(S))
-				facing = W;
+	public int getY() {	return y; }
 
-		}
-		if (command.equals(Move)) {
-			if (facing.equals(N))
-				y++;
-			else if (facing.equals(E))
-				x++;
-			else if (facing.equals(W))
-				x--;
-			else if (facing.equals(S))
-				y--;
+	public void setY(int y) { this.y = y; }
 
-		}
-	}
+	public Facing getFacing() {	return facing; }
 
-	public boolean isOutOfBounds(Plateau plateau) {
-
-		if (x < 0 || x > plateau.limitX)
-			return true;
-
-		if (y < 0 || y > plateau.limitY)
-			return true;
-
-		return false;
-	}
-
-	public boolean isPositionFilled(Plateau plateau, String roverId) {
-
-		Position position = new Position(x, y, facing);
-
-		return plateau.getRovers().stream().filter(rover -> !rover.getIdentification().equals(roverId))
-				.anyMatch(rover -> rover.getPositionOnPlateau().equals(position));
-	}
-
-	public boolean equals(Position otherPosition) {
-		return x == otherPosition.x && y == otherPosition.y;
-	}
+	public void setFacing(Facing facing) { this.facing = facing; }
 
 	@Override
-	public String toString() {
-		return x + " " + y + " " + facing;
-	}
+	public String toString() { return String.format("%s %s %s", x, y, facing); }
 
 }
