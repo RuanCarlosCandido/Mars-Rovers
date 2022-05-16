@@ -3,6 +3,9 @@ package roverTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.IOException;
+
+import org.controllers.RoverController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.models.Facing;
@@ -20,6 +23,8 @@ public class JUnitTest {
 	private Plateau plateau = new Plateau(5, 5);
 
 	private RoverService roverService = new RoverService(plateau);
+	
+	private RoverController roverController = new RoverController();
 
 	@Test
 	public void moving_rover_one_success_expected() {
@@ -115,4 +120,39 @@ public class JUnitTest {
 		});
 
 	}
+	
+	@Test
+	public void invalid_upper_right_coordinates_throw_expected() {
+
+		try {
+			roverController.run(new String[] {"5T"});
+		}catch(Exception e) {
+			assertEquals(true, e instanceof IOException);
+			assertEquals("Invalid upper Right Coordinates: 5T. The first line of input is the upper-right coordinates of the plateau and must have only numeric values", e.getMessage());
+		}
+
+	}
+	
+	@Test
+	public void invalid_rover_position_throw_expected() {
+
+		try {
+			roverController.run(new String[] {"55","1TT"});
+		}catch(Exception e) {
+			assertEquals(true, e instanceof IOException);
+			assertEquals("Invalid rover position: 1TT. The rover position on the plateau and must have only numeric values and rover orientation", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void invalid_rover_instruction_throw_expected() {
+
+		try {
+			roverController.run(new String[] {"55","12N","MMLL%R"});
+		}catch(Exception e) {
+			assertEquals(true, e instanceof IOException);
+			assertEquals("Invalid rover instruction: MMLL%R. Character: % is invalid, only letters (L, R and M) are accepted", e.getMessage());
+		}
+	}
+
 }

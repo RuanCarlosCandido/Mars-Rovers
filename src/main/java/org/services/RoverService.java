@@ -55,8 +55,7 @@ public class RoverService {
 
 		executeInstruction(buildInstruction(rover2Instruction), rover2);
 
-		System.out.println(plateau.toString());
-
+		LOGGER.info("execution result: " + plateau.toString());
 	}
 
 	
